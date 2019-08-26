@@ -1,0 +1,15 @@
+<h2>Tasks</h2>
+<ul>
+    {% for task in object_list %}
+    <br>
+        <li>{{ task.name }}</li>
+        <li>{{ task.priority }}</li>
+        <li>{{ task.done }}</li>
+        <li>{{ task.created }}</li>
+        <li>{{ task.modified }}</li>
+        <li>{{ task.user.username }}</li>
+        <p><a href="{% url 'task-update' task.id %}">Update</a></p>
+    {% endfor %}
+</ul>
+
+<p><a href="{% url 'task-create' %}">Create</a></p>
