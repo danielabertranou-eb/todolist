@@ -22,7 +22,7 @@
     <div class="col-md-6">  
         <ul class="list-group">
             {% for task in object_list %}
-                <li class="list-group-item">Name: {{ task.name }}</li>    
+                <li class="list-group-item"><strong>{{ task.name }}</strong></li>    
                 <li class="list-group-item">Priority: {{ task.priority }}</li>
                 <li class="list-group-item">Created: {{ task.created }}</li>
                 <li class="list-group-item">Modified: {{ task.modified }}</li>
