@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from todolist import get_env_variable
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'app',
     'bootstrap3',
     'bootstrap_pagination',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +73,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'todolist.wsgi.application'
+
+SOCIAL_AUTH_EVENTBRITE_KEY = get_env_variable('SOCIAL_AUTH_EVENTBRITE_KEY')
+SOCIAL_AUTH_EVENTBRITE_SECRET = get_env_variable(
+    'SOCIAL_AUTH_EVENTBRITE_SECRET',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.eventbrite.EventbriteOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 
 # Database
