@@ -8,7 +8,17 @@
 
 {% block content %}
 <div class="row">
-    <h2>Tasks</h2>
+    <div class="col-md-6">
+        <h2>{{ user.username.capitalize }} tasks</h2>
+    </div>
+    <div class="col-md-6 pull-right">
+        <a href="{% url 'task-create' %}" class="btn btn-primary pull-right" role="button">
+                {% bootstrap_icon "plus" %} Create
+        </a>
+    </div> 
+</div>
+<br>
+<div class="row">
     <div class="col-md-6">  
         <ul class="list-group">
             {% for task in object_list %}
@@ -22,20 +32,24 @@
                 <li class="list-group-item">Not done</li>
                 {% endif %}
                 <li class="list-group-item">
-                    <a href="{% url 'task-update' task.id %}" class="btn btn-info" role="button">
-                            {% bootstrap_icon "edit" %} Edit
-                    </a>
-                    <a href="{% url 'task-update' task.id %}" class="btn btn-info" role="button">
-                            {% bootstrap_icon "trash" %} Delete
-                    </a>
+                    <div class="row">
+                        <div class="col-md-5 pull-right">
+                            <a href="{% url 'task-update' task.id %}" class="btn btn-info" role="button">
+                                    {% bootstrap_icon "edit" %} Edit
+                            </a>
+                            <a href="{% url 'task-delete' task.id %}" class="btn btn-info" role="button">
+                                    {% bootstrap_icon "trash" %} Delete
+                            </a>
+                        </div>
+                    </div>
+                    
                 </li>
             {% endfor %}
         </ul>
     </div>
 </div>
 <div class="row">
-    <a href="{% url 'task-create' %}" class="btn btn-primary" role="button">
-            {% bootstrap_icon "plus" %} Create
-    </a>
+   
 </div>
+<br>
 {% endblock %}

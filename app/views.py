@@ -3,11 +3,15 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from app.models import Task
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 
 
 class Login(LoginView):
     template_name = 'app/login.html'
+
+
+class Logout(LogoutView):
+    template_name = ''
 
 
 class TaskList(LoginRequiredMixin, ListView):
