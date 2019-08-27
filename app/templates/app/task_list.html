@@ -1,15 +1,41 @@
-<h2>Tasks</h2>
-<ul>
-    {% for task in object_list %}
-    <br>
-        <li>{{ task.name }}</li>
-        <li>{{ task.priority }}</li>
-        <li>{{ task.done }}</li>
-        <li>{{ task.created }}</li>
-        <li>{{ task.modified }}</li>
-        <li>{{ task.user.username }}</li>
-        <p><a href="{% url 'task-update' task.id %}">Update</a></p>
-    {% endfor %}
-</ul>
+{% extends 'app/base.html' %}
 
-<p><a href="{% url 'task-create' %}">Create</a></p>
+{% load bootstrap3 %}
+
+{% load bootstrap_pagination %}
+
+{% bootstrap_paginate page_obj range=5 show_prev_next="false" show_first_last="true" %}
+
+{% block content %}
+<div class="row">
+    <h2>Tasks</h2>
+    <div class="col-md-6">  
+        <ul class="list-group">
+            {% for task in object_list %}
+                <li class="list-group-item">Name: {{ task.name }}</li>    
+                <li class="list-group-item">Priority: {{ task.priority }}</li>
+                <li class="list-group-item">Created: {{ task.created }}</li>
+                <li class="list-group-item">Modified: {{ task.modified }}</li>
+                {% if task.done %}
+                <li class="list-group-item">Done</li>
+                {% else %}
+                <li class="list-group-item">Not done</li>
+                {% endif %}
+                <li class="list-group-item">
+                    <a href="{% url 'task-update' task.id %}" class="btn btn-info" role="button">
+                            {% bootstrap_icon "edit" %} Edit
+                    </a>
+                    <a href="{% url 'task-update' task.id %}" class="btn btn-info" role="button">
+                            {% bootstrap_icon "trash" %} Delete
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <a href="{% url 'task-create' %}" class="btn btn-primary" role="button">
+            {% bootstrap_icon "plus" %} Create
+    </a>
+</div>
+{% endblock %}

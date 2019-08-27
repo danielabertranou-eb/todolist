@@ -1,21 +1,40 @@
-# from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView
-from django.views.generic import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from app.models import Task
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 
 
-class TaskList(ListView):
+class Login(LoginView):
+    template_name = 'app/login.html'
+
+
+class TaskList(LoginRequiredMixin, ListView):
+
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
+
+
+class TaskCreate(LoginRequiredMixin, CreateView):
     model = Task
-
-
-class TaskCreate(CreateView):
-    model = Task
-    fields = ['name', 'user', 'priority']
+    fields = ['name', 'priority']
     success_url = reverse_lazy('task-list')
+    template_name = 'app/task_create.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(TaskCreate, self).form_valid(form)
 
 
-class TaskUpdate(UpdateView):
+class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
-    fields = ['name', 'user', 'priority', 'done']
+    fields = ['name', 'priority', 'done']
     success_url = reverse_lazy('task-list')
+    template_name = 'app/task_update.html'
+
+
+class TaskDelete(LoginRequiredMixin, DeleteView):
+    model = Task
+    success_url = reverse_lazy('task-list')
+    template_name = 'app/task_delete.html'

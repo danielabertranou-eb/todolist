@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="row">
+    <h3>New task</h3>
+    <div class="col-md-6">  
+      <form action="{% url 'task-create' %}" method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+          <button type="submit" class="btn btn-primary">
+            {% bootstrap_icon "save" %} Save
+          </button>
+        {% endbuttons %}
+    </form>
+  </div>
+</div>
+{% endblock %}
