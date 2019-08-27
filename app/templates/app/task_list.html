@@ -29,11 +29,20 @@
                 {% if task.done %}
                 <li class="list-group-item">Done</li>
                 {% else %}
-                <li class="list-group-item">Not done</li>
+                <li class="list-group-item"> Not done</li>
                 {% endif %}
                 <li class="list-group-item">
                     <div class="row">
-                        <div class="col-md-5 pull-right">
+                        <div class="col-md-8 pull-right">
+                            {% if task.done %}
+                            <a href="#" class="btn btn-info disabled" role="button">
+                                    {% bootstrap_icon "check" %} Mark as done
+                            </a>
+                            {% else %}
+                            <a href="{% url 'task-done' task.id %}" class="btn btn-info" role="button">
+                                    {% bootstrap_icon "check" %} Mark as done
+                            </a>
+                            {% endif %}
                             <a href="{% url 'task-update' task.id %}" class="btn btn-info" role="button">
                                     {% bootstrap_icon "edit" %} Edit
                             </a>

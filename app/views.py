@@ -1,9 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from app.models import Task
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView, LogoutView
 
 
 class Login(LoginView):
@@ -42,3 +43,11 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
     model = Task
     success_url = reverse_lazy('task-list')
     template_name = 'app/task_delete.html'
+
+
+def mark_as_done(request, pk):
+    task = Task.objects.get(pk=pk)
+    if not task.done:
+        task.done = True
+        task.save()
+    return redirect('task-list')
