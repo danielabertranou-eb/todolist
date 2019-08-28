@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'accounts/login/$', Login.as_view(), name='login'),
     url(r'tasks/', include('app.urls')),
     url(r'^admin/', admin.site.urls),
+    url('', include('social_django.urls', namespace='social')),
 ]
