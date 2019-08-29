@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.db import models
 
 
@@ -15,7 +14,4 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     priority = models.ForeignKey(Priority, on_delete=models.PROTECT)
-    user = models.ForeignKey(
-      settings.AUTH_USER_MODEL,
-      on_delete=models.CASCADE
-    )
+    event_id = models.IntegerField()

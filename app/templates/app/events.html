@@ -1,0 +1,39 @@
+{% extends 'app/base.html' %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <h2>{{ user.first_name.capitalize }}'s events</h2>
+    </div>
+</div>
+<br>
+<div class="row">
+    {% for event in events %}
+    <div class="col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ event.name.text }}</h3>
+            </div>
+            <div class="panel-body">
+                <p class="card-text"  style="height: 40px;">{{ event.description.text }}</p>
+                <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Start: {{ event.start.local }}</li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> End: {{ event.end.local }}</li>
+                </ul>
+                <div class="pull-right">
+                    <a href="{% url 'task-list' event.id %}" class="btn btn-info" role="button">
+                        {% bootstrap_icon "tasks" %} Tasks
+                    </a>
+                    <a href="{% url 'task-create' event.id %}" class="btn btn-success" role="button">
+                        {% bootstrap_icon "plus" %} New task
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<br>
+{% endblock %}

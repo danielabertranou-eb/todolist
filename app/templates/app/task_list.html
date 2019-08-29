@@ -9,56 +9,57 @@
 {% block content %}
 <div class="row">
     <div class="col-md-6">
-        <h2>{{ user.username.capitalize }} tasks</h2>
+        <h2>Tasks: {{ event.name.text }}</h2>
     </div>
     <div class="col-md-6 pull-right">
-        <a href="{% url 'task-create' %}" class="btn btn-primary pull-right" role="button">
+        <a href="{% url 'task-create' event_id %}" class="btn btn-success pull-right" role="button">
                 {% bootstrap_icon "plus" %} Create
         </a>
     </div> 
 </div>
 <br>
-<div class="row">
-    <div class="col-md-6">  
-        <ul class="list-group">
-            {% for task in object_list %}
-                <li class="list-group-item"><strong>{{ task.name }}</strong></li>    
-                <li class="list-group-item">Priority: {{ task.priority }}</li>
-                <li class="list-group-item">Created: {{ task.created }}</li>
-                <li class="list-group-item">Modified: {{ task.modified }}</li>
-                {% if task.done %}
-                <li class="list-group-item">Done</li>
-                {% else %}
-                <li class="list-group-item"> Not done</li>
-                {% endif %}
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col-md-8 pull-right">
-                            {% if task.done %}
-                            <a href="#" class="btn btn-info disabled" role="button">
-                                    {% bootstrap_icon "check" %} Mark as done
-                            </a>
-                            {% else %}
-                            <a href="{% url 'task-done' task.id %}" class="btn btn-info" role="button">
-                                    {% bootstrap_icon "check" %} Mark as done
-                            </a>
-                            {% endif %}
-                            <a href="{% url 'task-update' task.id %}" class="btn btn-info" role="button">
-                                    {% bootstrap_icon "edit" %} Edit
-                            </a>
-                            <a href="{% url 'task-delete' task.id %}" class="btn btn-info" role="button">
-                                    {% bootstrap_icon "trash" %} Delete
-                            </a>
-                        </div>
-                    </div>
-                    
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+<div class="panel panel-default">
+    <table class="table table-striped" style=“width:100%“>
+        <tr>
+            <th>Name</th>
+            <th>Priority</th>
+            <th>Created</th>
+            <th>Modified</th>
+            <th>Done</th>
+            <th></th>
+        </tr>
+        {% for task in object_list %}
+        <tr>
+            <td>{{ task.name }}</td>
+            <td>{{ task.priority }}</td>
+            <td>{{ task.created }}</td>
+            <td>{{ task.modified }}</td>
+            {% if task.done %}
+                <td>Done</td>
+            {% else %}
+                <td> Not done</td>
+            {% endif %}
+            <td>
+            {% if task.done %}
+                <a href="#" class="btn btn-info disabled" role="button">
+                    {% bootstrap_icon "ok" %} Mark as done
+                </a>
+            {% else %}
+                <a href="{% url 'task-done' event_id task.id %}" class="btn btn-info" role="button">
+                    {% bootstrap_icon "ok" %} Mark as done
+                </a>
+            {% endif %}
+                <a href="{% url 'task-update' event_id task.id %}" class="btn btn-info" role="button">
+                    {% bootstrap_icon "pencil" %} Edit
+                </a>
+                <a href="{% url 'task-delete' event_id task.id %}" class="btn btn-info" role="button">
+                    {% bootstrap_icon "trash" %} Delete
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
-<div class="row">
-   
-</div>
+
 <br>
 {% endblock %}
