@@ -9,11 +9,11 @@
     <body>
         <nav class="navbar fixed-top navbar-default bg-light">
             <div class="container-fluid text-uppercase">
-                <a class="navbar-brand" href="{% url 'task-list' %}">To do list</a>
+                <a class="navbar-brand" href="{% url 'event-list' %}">To do list</a>
                 {% if user.is_authenticated %}
                 <ul class="nav navbar-nav mr-auto navbar-right text-uppercase ">
                     <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> {{ user.username }}</a>
+                        <a href="#"><span class="glyphicon glyphicon-user"></span> {{ user.first_name }}</a>
                     </li>
                     <li>
                         <a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>

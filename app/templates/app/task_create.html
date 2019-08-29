@@ -6,11 +6,11 @@
 <div class="row">
     <h3>New task</h3>
     <div class="col-md-6">  
-      <form action="{% url 'task-create' %}" method="post" class="form">
+      <form action="{% url 'task-create' event_id %}" method="post" class="form">
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons %}
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-info">
             {% bootstrap_icon "save" %} Save
           </button>
         {% endbuttons %}
