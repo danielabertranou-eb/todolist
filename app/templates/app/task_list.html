@@ -4,8 +4,6 @@
 
 {% load bootstrap_pagination %}
 
-{% bootstrap_paginate page_obj range=5 show_prev_next="false" show_first_last="true" %}
-
 {% block content %}
 <div class="row">
     <div class="col-md-6">
@@ -60,6 +58,7 @@
         {% endfor %}
     </table>
 </div>
-
 <br>
+{% bootstrap_paginate page_obj range=3 %}
+
 {% endblock %}

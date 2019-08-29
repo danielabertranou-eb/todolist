@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.core.paginator import Paginator, Page
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, TemplateView
@@ -22,10 +23,14 @@ class EventList(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(EventList, self).get_context_data(**kwargs)
         context['events'] = get_events(self.request.user)
+        # context['is_paginated'] = True
+        # context['paginator'] = Paginator(context['events'], 10)
+        # context['page_obj'] = context['paginator'].page(self.kwargs['page'])
         return context
 
 
 class TaskList(LoginRequiredMixin, ListView):
+    paginate_by = 10
 
     def get_queryset(self):
         return Task.objects.filter(event_id=int(self.kwargs['event_id']))
