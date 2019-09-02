@@ -27,6 +27,7 @@ class EventList(LoginRequiredMixin, TemplateView):
 
 class TaskList(LoginRequiredMixin, ListView):
     paginate_by = 10
+    template_name = 'app/task_list.html'
 
     def get_queryset(self):
         return Task.objects.filter(event_id=int(self.kwargs['event_id']))
