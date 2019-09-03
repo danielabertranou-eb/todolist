@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
@@ -88,6 +89,7 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
         )
 
 
+@login_required
 def mark_as_done(request, event_id, pk):
     task = Task.objects.get(pk=pk)
     if not task.done:

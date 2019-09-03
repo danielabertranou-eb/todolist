@@ -147,3 +147,34 @@ class ViewTest(TestCase):
         self.assertEqual(response.url, '/accounts/login/?next={}'.format(URL))
         event_tasks = Task.objects.all()
         self.assertEqual(len(event_tasks), 1)
+
+    def test_mark_as_done_view_returns_302(self):
+        EVENT_ID = 1
+        task_data = {
+            'name': 'test1',
+            'event_id': EVENT_ID,
+            'priority': self.priority
+        }
+        task = Task.objects.create(**task_data)
+        URL = '/events/{}/tasks/done/{}/'.format(EVENT_ID, task.id)
+        response = self.logged_client.post(URL, data={'event_id': task.id})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/events/{}/tasks/'.format(EVENT_ID))
+        done_task = Task.objects.get(id=task.id)
+        self.assertTrue(done_task.done)
+
+    def test_mark_as_done_view_redirects_to_login_view(self):
+        client = Client()
+        EVENT_ID = 1
+        task_data = {
+            'name': 'test1',
+            'event_id': EVENT_ID,
+            'priority': self.priority
+        }
+        task = Task.objects.create(**task_data)
+        URL = '/events/{}/tasks/done/{}/'.format(EVENT_ID, task.id)
+        response = client.post(URL, data={'event_id': task.id})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/accounts/login/?next={}'.format(URL))
+        done_task = Task.objects.get(id=task.id)
+        self.assertFalse(done_task.done)
