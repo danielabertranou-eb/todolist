@@ -27,7 +27,7 @@ class ModelTest(TestCase):
 
 class ViewTest(TestCase):
     def setUp(self):
-        self.priority = Priority.objects.create(name='Low')
+        self.priority = Priority.objects.get(id=1)
         username = 'test_user'
         password = 'test_pass'
         User.objects.create_user(username=username, password=password)
