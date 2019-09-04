@@ -6,6 +6,8 @@ source =
 omit =
     venv/*
     */test*
+    settings/*
+    todolist/*
 
 [report]
 exclude_lines =
