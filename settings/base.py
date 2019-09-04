@@ -81,7 +81,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
