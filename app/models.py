@@ -14,7 +14,7 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     priority = models.ForeignKey(Priority, on_delete=models.PROTECT)
-    event_id = models.IntegerField()
+    event_id = models.CharField(max_length=30)
 
     class Meta:
         ordering = ['-priority', 'created']

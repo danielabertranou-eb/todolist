@@ -2,6 +2,8 @@ import dj_database_url
 from .base import *
 from .utils import get_env_variable
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 
 SOCIAL_AUTH_EVENTBRITE_KEY = get_env_variable('SOCIAL_AUTH_EVENTBRITE_KEY')
 SOCIAL_AUTH_EVENTBRITE_SECRET = get_env_variable(
